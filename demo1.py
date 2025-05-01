@@ -27,7 +27,7 @@ import streamlit as st
 import plotly.express as px
 
 # Install openpyxl if you haven't already
-!pip install openpyxl
+
 
 try:
   df = pd.read_excel('SalidaFinal.xlsx', engine='openpyxl')
