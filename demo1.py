@@ -8,7 +8,6 @@ except FileNotFoundError:
   st.error("Error: 'SalidaFinal.xlsx' not found. Please make sure the file exists and is in the correct location.")
 except Exception as e:
   st.error(f"An error occurred: {e}")
-import matplotlib.pyplot as plt
 import plotly.express as px
 
 # Assuming 'Region' and 'Sales' are column names in your DataFrame
