@@ -16,3 +16,8 @@ if 'Region' in df.columns and 'Sales' in df.columns:
     st.plotly_chart(fig)
 else:
     st.error("Error: 'Region' or 'Sales' columns not found in the DataFrame.")
+# prompt: Usando el dataframe df, crea un filtro con la columna Region
+
+region_filter = st.selectbox("Select Region", df['Region'].unique())
+filtered_df = df[df['Region'] == region_filter]
+st.dataframe(filtered_df)
