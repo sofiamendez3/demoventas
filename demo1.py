@@ -37,3 +37,43 @@ if 'Category' in df.columns:
     st.plotly_chart(fig_pie)
 else:
     st.error("Error: 'Category' column not found in the DataFrame.")
+# prompt: Crear una grafica de pastel de las categorias de los productos y agregarle filtros, tener en cuenta que los estados tienen que cambiar conforme la region 
+
+import pandas as pd
+import streamlit as st
+import plotly.express as px
+
+# Install openpyxl if you haven't already
+# !pip install openpyxl  # This should be done only once in the notebook environment
+
+try:
+    df = pd.read_excel('SalidaFinal.xlsx', engine='openpyxl')
+except FileNotFoundError:
+    st.error("Error: 'SalidaFinal.xlsx' not found. Please make sure the file exists and is in the correct location.")
+    st.stop()  # Stop execution if the file is not found
+except Exception as e:
+    st.error(f"An error occurred: {e}")
+    st.stop()
+
+st.title("Interactive Sales Data Visualization")
+
+# Region filter
+selected_region = st.selectbox("Select Region", df['Region'].unique())
+
+# Dynamic State filter based on selected region
+filtered_df_region = df[df['Region'] == selected_region]
+selected_state = st.selectbox("Select State", filtered_df_region['State'].unique())
+
+# Apply filters
+filtered_df = df[(df['Region'] == selected_region) & (df['State'] == selected_state)]
+
+# Display filtered data (optional)
+#st.dataframe(filtered_df)
+
+# Create pie chart of categories
+if 'Category' in filtered_df.columns:
+    fig_pie = px.pie(filtered_df, names='Category', title=f'Product Category Distribution in {selected_state}, {selected_region}',
+                     hole=0.3) # Add a hole to make it a donut chart
+    st.plotly_chart(fig_pie)
+else:
+    st.error("Error: 'Category' column not found in the DataFrame.")
