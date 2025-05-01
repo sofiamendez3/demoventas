@@ -29,3 +29,11 @@ else:
 region_filter = st.selectbox("Select Region", df['Region'].unique())
 filtered_df = df[df['Region'] == region_filter]
 st.dataframe(filtered_df)
+# prompt: Usando el dataframe df, crear 2 filtros con streamlit, uno con la columna Region y otro con la columna State e imprimir el dataframe. Tambien crear una gráfica de pastel con la columna Category
+
+# Assuming 'Category' is a column in your DataFrame
+if 'Category' in df.columns:
+    fig_pie = px.pie(df, names='Category', title='Distribución por Categoría')
+    st.plotly_chart(fig_pie)
+else:
+    st.error("Error: 'Category' column not found in the DataFrame.")
